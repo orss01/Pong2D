@@ -4,7 +4,7 @@
 Game::Game()
 {
     initWindow();
-    initPaddle();
+    initPaddles();
 }
 
 Game::~Game()
@@ -14,8 +14,10 @@ Game::~Game()
 
 void Game::initWindow()
 {
-    this->videoMode.size = {640u, 480u};
+    this->videoMode.size = {this->WIDTH, this->HEIGHT};
     this->window = new sf::RenderWindow(this->videoMode, "Pong", sf::Style::Close | sf::Style::Titlebar);
+    this->window->setVerticalSyncEnabled(true);
+    this->window->setFramerateLimit(60);
 }
 
 bool Game::running()
@@ -38,9 +40,21 @@ void Game::pollEvents()
             {
                 this->window->close();
             }
-            if(KeyPressed->scancode == sf::Keyboard::Scancode::Escape)
+            if(KeyPressed->scancode == sf::Keyboard::Scancode::W)
             {
-
+                this->paddleL->moveVertical(-this->PADDLE_SPEED); 
+            }
+            if(KeyPressed->scancode == sf::Keyboard::Scancode::S)
+            {
+                this->paddleL->moveVertical(this->PADDLE_SPEED); 
+            }
+            if(KeyPressed->scancode == sf::Keyboard::Scancode::Up)
+            {
+                this->paddleR->moveVertical(-this->PADDLE_SPEED); 
+            }
+            if(KeyPressed->scancode == sf::Keyboard::Scancode::Down)
+            {
+                this->paddleR->moveVertical(this->PADDLE_SPEED); 
             }
         }
     }
@@ -55,17 +69,21 @@ void Game::render()
 {
     this->window->clear();
 
-    this->renderPaddle();
+    this->renderPaddles();
 
     this->window->display();
 }
 
-void Game::initPaddle()
-{
-    this->paddle.setSize(sf::Vector2f({15.f, 75.f}));
+void Game::initPaddles()
+{ 
+    int center = (this->HEIGHT / 2) - 35;
+    this->paddleL = new Paddle(20, center);
+    this->paddleR = new Paddle(this->WIDTH - 35, center);
+
 }
 
-void Game::renderPaddle()
+void Game::renderPaddles()
 {
-    this->window->draw(this->paddle);
+    this->window->draw(this->paddleL->rect());
+    this->window->draw(this->paddleR->rect());
 }
