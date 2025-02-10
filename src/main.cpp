@@ -6,6 +6,7 @@ int main()
     while (game->running())
     {
         game->pollEvents();
+        game->keyboardInput();
         game->update();
         game->render();
     }

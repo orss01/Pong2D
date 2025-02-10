@@ -41,23 +41,26 @@ void Game::pollEvents()
                 this->window->close();
             }
         }
+    }
+}
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-        {
-            this->paddleL->moveVertical(-this->PADDLE_SPEED); 
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-        {
-            this->paddleL->moveVertical(this->PADDLE_SPEED); 
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-        {
-            this->paddleR->moveVertical(-this->PADDLE_SPEED); 
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-        {
-            this->paddleR->moveVertical(this->PADDLE_SPEED); 
-        }
+void Game::keyboardInput()
+{
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+    {
+        this->paddleL->moveVertical(-this->PADDLE_SPEED); 
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+    {
+        this->paddleL->moveVertical(this->PADDLE_SPEED); 
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+    {
+        this->paddleR->moveVertical(-this->PADDLE_SPEED); 
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+    {
+        this->paddleR->moveVertical(this->PADDLE_SPEED); 
     }
 }
 
