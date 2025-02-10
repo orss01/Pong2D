@@ -16,8 +16,8 @@ void Game::initWindow()
 {
     this->videoMode.size = {this->WIDTH, this->HEIGHT};
     this->window = new sf::RenderWindow(this->videoMode, "Pong", sf::Style::Close | sf::Style::Titlebar);
-    this->window->setVerticalSyncEnabled(true);
     this->window->setFramerateLimit(60);
+    
 }
 
 bool Game::running()
@@ -33,29 +33,30 @@ void Game::pollEvents()
         {
             this->window->close();
         }
-
+        
         else if(const auto *KeyPressed = event->getIf<sf::Event::KeyPressed>())
         {
             if(KeyPressed->scancode == sf::Keyboard::Scancode::Escape)
             {
                 this->window->close();
             }
-            if(KeyPressed->scancode == sf::Keyboard::Scancode::W)
-            {
-                this->paddleL->moveVertical(-this->PADDLE_SPEED); 
-            }
-            if(KeyPressed->scancode == sf::Keyboard::Scancode::S)
-            {
-                this->paddleL->moveVertical(this->PADDLE_SPEED); 
-            }
-            if(KeyPressed->scancode == sf::Keyboard::Scancode::Up)
-            {
-                this->paddleR->moveVertical(-this->PADDLE_SPEED); 
-            }
-            if(KeyPressed->scancode == sf::Keyboard::Scancode::Down)
-            {
-                this->paddleR->moveVertical(this->PADDLE_SPEED); 
-            }
+        }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        {
+            this->paddleL->moveVertical(-this->PADDLE_SPEED); 
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+        {
+            this->paddleL->moveVertical(this->PADDLE_SPEED); 
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+        {
+            this->paddleR->moveVertical(-this->PADDLE_SPEED); 
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+        {
+            this->paddleR->moveVertical(this->PADDLE_SPEED); 
         }
     }
 }

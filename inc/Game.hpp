@@ -9,11 +9,12 @@ class Game
         private:
             unsigned WIDTH = 640u;
             unsigned HEIGHT = 480u;
-            float PADDLE_SPEED = 20.f;
+            float PADDLE_SPEED = 1.f;
 
             sf::RenderWindow *window;
             sf::VideoMode videoMode;
             sf::RectangleShape paddle;
+            sf::Clock clock;
 
             //Objects
             Paddle *paddleL;

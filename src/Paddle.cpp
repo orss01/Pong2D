@@ -1,6 +1,5 @@
 #include "Paddle.hpp"
 
-
 Paddle::Paddle()
 {
     this->x = 0;
