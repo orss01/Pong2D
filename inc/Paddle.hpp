@@ -21,7 +21,9 @@ class Paddle{
     sf::RectangleShape rect();
     sf::Vector2f getPosition();
     void setPosition(float x, float y);
-    void moveVertical(float speed);
+    void moveVertical(float speed, float windowBottom);
+    float getPaddleHeight();
+    void updatePaddle();
 };
 
 #endif

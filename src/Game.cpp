@@ -3,8 +3,8 @@
 
 Game::Game()
 {
-    initWindow();
-    initPaddles();
+    this->initWindow();
+    this->initObjects();
 }
 
 Game::~Game()
@@ -46,48 +46,55 @@ void Game::pollEvents()
 
 void Game::keyboardInput()
 {
+    float windowBottom = this->HEIGHT - paddleL->getPaddleHeight();
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
-        this->paddleL->moveVertical(-this->PADDLE_SPEED); 
+        this->paddleL->moveVertical(-this->PADDLE_SPEED, windowBottom); 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
-        this->paddleL->moveVertical(this->PADDLE_SPEED); 
+        this->paddleL->moveVertical(this->PADDLE_SPEED, windowBottom); 
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
     {
-        this->paddleR->moveVertical(-this->PADDLE_SPEED); 
+        this->paddleR->moveVertical(-this->PADDLE_SPEED, windowBottom);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
     {
-        this->paddleR->moveVertical(this->PADDLE_SPEED); 
+        this->paddleR->moveVertical(this->PADDLE_SPEED, windowBottom); 
     }
 }
 
 void Game::update()
 {
-    this->pollEvents();
+    this->paddleL->updatePaddle();
+    this->paddleR->updatePaddle();
+    this->ball->updateBall(this->BALL_SPEED, this->HEIGHT, this->WIDTH);
 }
 
 void Game::render()
 {
     this->window->clear();
 
-    this->renderPaddles();
+    this->renderObjects();
 
     this->window->display();
 }
 
-void Game::initPaddles()
+void Game::initObjects()
 { 
-    int center = (this->HEIGHT / 2) - 35;
-    this->paddleL = new Paddle(20, center);
-    this->paddleR = new Paddle(this->WIDTH - 35, center);
+    float centerP = (this->HEIGHT / 2) - 35;
+    float centerBv = (this->HEIGHT / 2) - 7;
+    float centerBh = (this->WIDTH / 2) - 7;
+    this->paddleL = new Paddle(20, centerP);
+    this->paddleR = new Paddle(this->WIDTH - 35, centerP);
+    this->ball = new Ball(centerBh, centerBv);
 
 }
 
-void Game::renderPaddles()
+void Game::renderObjects()
 {
     this->window->draw(this->paddleL->rect());
     this->window->draw(this->paddleR->rect());
+    this->window->draw(this->ball->rect());
 }

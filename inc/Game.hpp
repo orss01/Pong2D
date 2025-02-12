@@ -1,8 +1,11 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <SFML/Graphics.hpp>
 #include "Paddle.hpp"
+#include "Ball.hpp"
+#include <SFML/Graphics.hpp>
+#include <vector>
+
 
 class Game
     {
@@ -10,20 +13,22 @@ class Game
             unsigned WIDTH = 640u;
             unsigned HEIGHT = 480u;
             float PADDLE_SPEED = 10.f;
+            float BALL_SPEED = 10.f;
 
             sf::RenderWindow *window;
             sf::VideoMode videoMode;
-            sf::RectangleShape paddle;
-            sf::Clock clock;
 
             //Objects
             Paddle *paddleL;
             Paddle *paddleR;
+            Ball *ball;
+            std::vector<sf::RectangleShape> ballWall;
+
 
             //Functions
             void initWindow();
-            void renderPaddles();
-            void initPaddles();
+            void renderObjects();
+            void initObjects();
             
         public:
             Game();

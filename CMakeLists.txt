@@ -13,6 +13,10 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main  src/main.cpp src/Game.cpp src/Paddle.cpp src/Ball.cpp)
+file(
+    GLOB CPP_FILES "src/*.cpp"
+)
+
+add_executable(main  ${CPP_FILES})
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
