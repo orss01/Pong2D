@@ -5,6 +5,8 @@ Game::Game()
 {
     this->initWindow();
     this->initObjects();
+    this->initFont();
+    this->initText();
 }
 
 Game::~Game()
@@ -74,7 +76,9 @@ void Game::update()
     this->ball->paddleCollision(*this->paddleL, *this->paddleR);
     this->paddleL->updatePaddle();
     this->paddleR->updatePaddle();
-    this->ball->updateBall(this->HEIGHT, this->WIDTH);
+    this->ball->updateBall(this->HEIGHT, this->WIDTH,*this->paddleL, *this->paddleR);
+    this->plPoints->setString(std::to_string(this->paddleL->getPoints()));
+    this->prPoints->setString(std::to_string(this->paddleR->getPoints()));
 }
 
 void Game::render()
@@ -102,4 +106,36 @@ void Game::renderObjects()
     this->window->draw(this->paddleL->rect());
     this->window->draw(this->paddleR->rect());
     this->window->draw(this->ball->rect());
+    this-> window->draw(*this->uiText);
+    this-> window->draw(*this->plPoints);
+    this-> window->draw(*this->prPoints);
+}
+
+void Game::initFont()
+{
+    if(!this->font.openFromFile("assets/PressStart2P-Regular.ttf"))
+    {
+        std::cout << "File Loading Error" << std::endl;
+        this->window->close();
+    }
+}
+
+void Game::initText()
+{
+    float middle = this->WIDTH / 2;
+    this->uiText = new sf::Text(this->font);
+    this->plPoints = new sf::Text(this->font);
+    this->prPoints = new sf::Text(this->font);
+    this->uiText->setCharacterSize(24);
+    this->uiText->setFillColor(sf::Color::White);
+    this->plPoints->setCharacterSize(24);
+    this->plPoints->setFillColor(sf::Color::White);
+    this->prPoints->setCharacterSize(24);
+    this->prPoints->setFillColor(sf::Color::White);
+    this->uiText->setString("PONG");
+    this->plPoints->setString(std::to_string(0));
+    this->prPoints->setString(std::to_string(0));
+    this->uiText->setPosition({middle - this->uiText->getGlobalBounds().getCenter().x, 20.f});
+    this->plPoints->setPosition({this->uiText->getPosition().x, this->uiText->getPosition().y + 2 * this->uiText->getCharacterSize()});
+    this->prPoints->setPosition({this->uiText->getPosition().x + 3 * this->uiText->getCharacterSize(), this->uiText->getPosition().y + 2 * this->uiText->getCharacterSize()});
 }

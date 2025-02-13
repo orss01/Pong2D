@@ -10,7 +10,8 @@ Ball::Ball()
     this->up = false;
     this->down = false;
     this->getTime = true;
-    this->speed = 5.f;
+    this->speedy = 5.f;
+    this->speedx = 5.f;
     initRect();
     auto start = std::chrono::high_resolution_clock::now();
 }
@@ -24,7 +25,8 @@ Ball::Ball(float x, float y)
     this->up = false;
     this->down = false;
     this->getTime = true;
-    this->speed = 5.f;
+    this->speedy = 5.f;
+    this->speedx = 5.f;
     initRect();
 }
 
@@ -49,7 +51,7 @@ sf::RectangleShape Ball::rect()
     return this->rs;
 }
 
-void Ball::updateBall(float bottomWindow, float rightWindow)
+void Ball::updateBall(float bottomWindow, float rightWindow, Paddle &paddleL, Paddle &paddleR)
 {   
     if(this->y < 0)
     {
@@ -67,6 +69,7 @@ void Ball::updateBall(float bottomWindow, float rightWindow)
         {
             this->spawnTimer = std::chrono::high_resolution_clock::now();
             this->getTime = false;
+            paddleR.addPoint();
         }
         this->spawn();
     }
@@ -76,41 +79,42 @@ void Ball::updateBall(float bottomWindow, float rightWindow)
         {
             this->spawnTimer = std::chrono::high_resolution_clock::now();
             this->getTime = false;
+            paddleL.addPoint();
         }
         this->spawn();
     }
 
     if(this->right && this->up)
     {
-        this->rs.move({this->speed, -this->speed});
+        this->rs.move({this->speedx, -this->speedy});
     }
     else if(this->right && this->down)
     {
-        this->rs.move({this->speed, this->speed});
+        this->rs.move({this->speedx, this->speedy});
     }
     else if(this->left && this->up)
     {
-        this->rs.move({-this->speed, -this->speed});
+        this->rs.move({-this->speedx, -this->speedy});
     }
     else if(this->left && this->down)
     {
-        this->rs.move({-this->speed, this->speed});
+        this->rs.move({-this->speedx, this->speedy});
     }
     else if(this->left)
     {
-        this->rs.move({-this->speed, 0.f});
+        this->rs.move({-this->speedx, 0.f});
     }
     else if(this->right)
     {
-        this->rs.move({this->speed, 0.f});
+        this->rs.move({this->speedx, 0.f});
     }
     else if(this->down)
     {
-        this->rs.move({0.f, this->speed});
+        this->rs.move({0.f, this->speedy});
     }
     else if(this->up)
     {
-        this->rs.move({0.f, -this->speed});
+        this->rs.move({0.f, -this->speedy});
     }
     this->x = this->rs.getPosition().x; 
     this->y = this->rs.getPosition().y;
@@ -121,37 +125,61 @@ void Ball::paddleCollision(Paddle paddleL, Paddle paddleR)
 
     if (this->rs.getGlobalBounds().findIntersection(paddleL.rect().getGlobalBounds()).has_value())
     {
-        this->speed = 10.f;
+        this->speedx = 10.f;
+        this->speedy = 15.f;
         this->right = true;
         this->left = false;
         if(this->rs.getGlobalBounds().getCenter().y > paddleL.rect().getGlobalBounds().getCenter().y + 8.f)
         {
-            this->up = !true;
-            this->down = !false;
+            this->speedx = 10.f;
+            this->speedx = 10.f;
+            this->up = false;
+            this->down = true;
         }
         
         else if(this->rs.getGlobalBounds().getCenter().y < paddleL.rect().getGlobalBounds().getCenter().y - 8.f)
         {
-            this->up = !false;
-            this->down = !true;
+            this->speedx = 10.f;
+            this->speedx = 10.f;
+            this->up = true;
+            this->down = false;
+        }
+        else
+        {
+            this->speedx = 10.f;
+            this->speedx = 10.f;
+            this->up = false;
+            this->down = false;
         }
 
     }
     if (this->rs.getGlobalBounds().findIntersection(paddleR.rect().getGlobalBounds()).has_value())
     {
-        this->speed = 10.f;
+        this->speedx = 10.f;
+        this->speedy = 15.f;
         this->right = false;
         this->left = true;
         if(this->rs.getGlobalBounds().getCenter().y > paddleR.rect().getGlobalBounds().getCenter().y + 8.f)
         {
-            this->up = !true;
-            this->down = !false;
+            this->speedx = 10.f;
+            this->speedx = 10.f;
+            this->up = false;
+            this->down = true;
         }
         
         else if(this->rs.getGlobalBounds().getCenter().y < paddleR.rect().getGlobalBounds().getCenter().y - 8.f)
         {
-            this->up = !false;
-            this->down = !true;
+            this->speedx = 10.f;
+            this->speedx = 10.f;
+            this->up = true;
+            this->down = false;
+        }
+        else
+        {
+            this->speedx = 10.f;
+            this->speedx = 10.f;
+            this->up = false;
+            this->down = false;
         }
     }
 }
@@ -178,7 +206,8 @@ void Ball::spawn()
             this->down = false;
             this->up = true;
         }
-        this->speed = 5.f;
+        this->speedx = 5.f;
+        this->speedy = 5.f;
     }
 
 }

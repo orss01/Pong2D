@@ -11,7 +11,8 @@ class Ball
     float x;
     float y;
     float DIMENSION = 14.f;
-    float speed;
+    float speedy;
+    float speedx;
 
     sf::RectangleShape rs;
 
@@ -33,7 +34,7 @@ class Ball
     ~Ball();
     sf::Vector2f getPosition();
     sf::RectangleShape rect();
-    void updateBall(float bottomWindow, float rightWindow);
+    void updateBall(float bottomWindow, float rightWindow, Paddle &paddleL, Paddle &paddleR);
     void paddleCollision(Paddle paddleL, Paddle paddleR);
     void spawn();
 

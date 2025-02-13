@@ -14,6 +14,8 @@ class Paddle{
     bool up;
     bool down;
 
+    unsigned points;
+
     //functions
     void initRect();
 
@@ -31,6 +33,8 @@ class Paddle{
     void goingDown();
     bool getUp();
     bool getDown();
+    void addPoint();
+    unsigned getPoints();
 };
 
 #endif

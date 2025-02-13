@@ -15,6 +15,10 @@ class Game
 
             sf::RenderWindow *window;
             sf::VideoMode videoMode;
+            sf::Font font;
+            sf::Text *uiText;
+            sf::Text *plPoints;
+            sf::Text *prPoints;
 
             //Objects
             Paddle *paddleL;
@@ -26,6 +30,8 @@ class Game
             void initWindow();
             void renderObjects();
             void initObjects();
+            void initFont();
+            void initText();
             
         public:
             Game();

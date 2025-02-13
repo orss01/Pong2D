@@ -6,6 +6,7 @@ Paddle::Paddle()
     this->y = 0;
     this->up = false;
     this->down = false;
+    this->points = 0;
     initRect();
 }
 
@@ -15,6 +16,7 @@ Paddle::Paddle(float x, float y)
     this->y = y - 7;
     this->up = false;
     this->down = false;
+    this->points = 0;
     initRect();
 }
 
@@ -92,4 +94,14 @@ bool Paddle::getUp()
 bool Paddle::getDown()
 {
     return  this->down;
+}
+
+void Paddle::addPoint()
+{
+    this->points += 1;
+}
+
+unsigned Paddle::getPoints()
+{
+    return this->points;
 }
