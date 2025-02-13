@@ -11,6 +11,9 @@ class Paddle{
     float y;
     sf::RectangleShape rs;
 
+    bool up;
+    bool down;
+
     //functions
     void initRect();
 
@@ -24,6 +27,10 @@ class Paddle{
     void moveVertical(float speed, float windowBottom);
     float getPaddleHeight();
     void updatePaddle();
+    void goingUp();
+    void goingDown();
+    bool getUp();
+    bool getDown();
 };
 
 #endif

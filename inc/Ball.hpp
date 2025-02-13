@@ -2,6 +2,8 @@
 #define BALL_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Paddle.hpp"
+#include <chrono>
 
 class Ball
 {
@@ -9,6 +11,7 @@ class Ball
     float x;
     float y;
     float DIMENSION = 14.f;
+    float speed;
 
     sf::RectangleShape rs;
 
@@ -16,6 +19,9 @@ class Ball
     bool left;
     bool up;
     bool down;
+
+    bool getTime;
+    std::chrono::high_resolution_clock::time_point spawnTimer;
 
     //Functions
     void initRect();
@@ -27,7 +33,9 @@ class Ball
     ~Ball();
     sf::Vector2f getPosition();
     sf::RectangleShape rect();
-    void updateBall(float speed,  float bottomWindow, float rightWindow);
+    void updateBall(float bottomWindow, float rightWindow);
+    void paddleCollision(Paddle paddleL, Paddle paddleR);
+    void spawn();
 
 };
 

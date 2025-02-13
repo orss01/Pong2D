@@ -50,26 +50,31 @@ void Game::keyboardInput()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         this->paddleL->moveVertical(-this->PADDLE_SPEED, windowBottom); 
+        this->paddleL->goingUp();
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         this->paddleL->moveVertical(this->PADDLE_SPEED, windowBottom); 
+        this->paddleL->goingDown();
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
     {
         this->paddleR->moveVertical(-this->PADDLE_SPEED, windowBottom);
+        this->paddleR->goingUp();
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
     {
         this->paddleR->moveVertical(this->PADDLE_SPEED, windowBottom); 
+        this->paddleR->goingDown();
     }
 }
 
 void Game::update()
 {
+    this->ball->paddleCollision(*this->paddleL, *this->paddleR);
     this->paddleL->updatePaddle();
     this->paddleR->updatePaddle();
-    this->ball->updateBall(this->BALL_SPEED, this->HEIGHT, this->WIDTH);
+    this->ball->updateBall(this->HEIGHT, this->WIDTH);
 }
 
 void Game::render()

@@ -4,6 +4,8 @@ Paddle::Paddle()
 {
     this->x = 0;
     this->y = 0;
+    this->up = false;
+    this->down = false;
     initRect();
 }
 
@@ -11,6 +13,8 @@ Paddle::Paddle(float x, float y)
 {
     this->x = x - 7;
     this->y = y - 7;
+    this->up = false;
+    this->down = false;
     initRect();
 }
 
@@ -66,4 +70,26 @@ float Paddle::getPaddleHeight()
 void Paddle::updatePaddle()
 {
     this->rs.setPosition({this->x, this->y});
+}
+
+void Paddle::goingUp()
+{
+    this->up = true;
+    this->down = false;
+}
+
+void Paddle::goingDown()
+{
+    this->up = false;
+    this->down = true;
+}
+
+bool Paddle::getUp()
+{
+    return  this->up;
+}
+
+bool Paddle::getDown()
+{
+    return  this->down;
 }

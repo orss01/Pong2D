@@ -4,7 +4,6 @@
 #include "Paddle.hpp"
 #include "Ball.hpp"
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 
 class Game
@@ -13,7 +12,6 @@ class Game
             unsigned WIDTH = 640u;
             unsigned HEIGHT = 480u;
             float PADDLE_SPEED = 10.f;
-            float BALL_SPEED = 10.f;
 
             sf::RenderWindow *window;
             sf::VideoMode videoMode;
@@ -22,7 +20,6 @@ class Game
             Paddle *paddleL;
             Paddle *paddleR;
             Ball *ball;
-            std::vector<sf::RectangleShape> ballWall;
 
 
             //Functions
